@@ -6,16 +6,17 @@ import AVFoundation
 
 public class MyViewController: UIViewController {
     
+   
     let genreName: [String] = ["Jazz", "Classical", "Rap", "Opera", "Country & Western", "Reggae", "Dance", "Indie", "Bollywood", "Rock Heavy Metal", "Pop"]
     
-    var audioFile: AVAudioPlayer?
-    
+    let stackView       = UIStackView()
     let cardView        = UIView()
     let videoImageView  = UIImageView()
-    let titleLabel      = UILabel()
+    let descriptionLabel      = UILabel()
     let watchButton     = UIButton()
     let animateButton   = UIButton()
     
+    var audioFile: AVAudioPlayer?
     var cardViewBottomConstraint: NSLayoutConstraint!
     
     
@@ -65,15 +66,15 @@ public class MyViewController: UIViewController {
 
     
     func setupTitleLabel() {
-        cardView.addSubview(titleLabel)
-        titleLabel.text             = "You are high self-esteem, creative, outgoing and at ease"
-        titleLabel.font             = UIFont.boldSystemFont(ofSize: 20)
-        titleLabel.textColor        = .darkGray
-        titleLabel.textAlignment    = .center
-        titleLabel.numberOfLines    = 5
-        titleLabel.lineBreakMode    = .byWordWrapping
+        cardView.addSubview(descriptionLabel)
+        descriptionLabel.text             = "You are high self-esteem, creative, outgoing and at ease"
+        descriptionLabel.font             = UIFont.boldSystemFont(ofSize: 20)
+        descriptionLabel.textColor        = .darkGray
+        descriptionLabel.textAlignment    = .center
+        descriptionLabel.numberOfLines    = 5
+        descriptionLabel.lineBreakMode    = .byWordWrapping
         
-        setTitleLabelConstraints()
+        setDescriptionLabelConstraints()
     }
     
     
@@ -89,28 +90,30 @@ public class MyViewController: UIViewController {
     }
     
     func setupStackView(){
-
-        let genreName: [String] = ["Jazz", "Classical", "Rap", "Opera", "Country & Western", "Reggae", "Dance", "Indie", "Bollywood", "Rock Heavy Metal", "Pop"]
-        let stackView = UIStackView()
+        view.addSubview(stackView)
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .center
         stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
+        addButtonsToStackView()
+        setStackViewConstraints()
+    }
+    
+    func addButtonsToStackView(){
         for i in 0 ..< 11 {
             let button = UIButton(type: .system)
             button.setTitle("\(genreName[i])", for: [])
-            button.backgroundColor = .blue
             stackView.addArrangedSubview(button)
         }
-
-        view.addSubview(stackView)
-        view.addConstraints(
-            NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[stackView]-20-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["stackView": stackView]))
-
-        view.addConstraints(
-            NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[stackView]-20-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["stackView": stackView])xa)
+    }
+    
+    func setStackViewConstraints(){
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30).isActive = true
     }
     
     
@@ -153,12 +156,12 @@ public class MyViewController: UIViewController {
     }
     
     
-    func setTitleLabelConstraints() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 30).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -30).isActive = true
+    func setDescriptionLabelConstraints() {
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 30).isActive = true
+        descriptionLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -30).isActive = true
         //        titleLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: videoImageView.bottomAnchor, constant: 18).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: videoImageView.bottomAnchor, constant: 18).isActive = true
     }
     
     
@@ -180,5 +183,5 @@ public class MyViewController: UIViewController {
 }
 
 let vc = MyViewController()
-vc.preferredContentSize = CGSize(width: 600, height: 800)
+vc.preferredContentSize = CGSize(width: 400, height: 600)
 PlaygroundPage.current.liveView = vc
