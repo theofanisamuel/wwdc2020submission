@@ -3,7 +3,9 @@
 import UIKit
 import PlaygroundSupport
 
-let containerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 375.0, height: 667.0))
+let containerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 600, height: 800))
+
+let genreName: [String] = ["Jazz", "Classical", "Rap", "Opera", "Country & Western", "Reggae", "Dance", "Indie", "Bollywood", "Rock Heavy Metal", "Pop"]
 
 containerView.backgroundColor = UIColor.white
 
@@ -11,18 +13,18 @@ let stackView = UIStackView()
 stackView.axis = .vertical
 stackView.distribution = .fillEqually
 stackView.alignment = .center
-stackView.spacing = 20
+stackView.spacing = 10
 stackView.translatesAutoresizingMaskIntoConstraints = false
 
-for i in 1 ..< 10
-{
+for i in 0 ..< 11 {
     let button = UIButton(type: .system)
-    button.setTitle("view \(i)", for: [])
-    
+    button.setTitle("\(genreName[i])", for: [])
+    button.backgroundColor = .blue
     stackView.addArrangedSubview(button)
 }
 
 containerView.addSubview(stackView)
+
 
 containerView.addConstraints(
     NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[stackView]-20-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["stackView": stackView])

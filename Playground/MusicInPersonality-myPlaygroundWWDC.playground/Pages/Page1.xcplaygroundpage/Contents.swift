@@ -4,7 +4,9 @@ import UIKit
 import PlaygroundSupport
 import AVFoundation
 
-class MyViewController: UIViewController {
+public class MyViewController: UIViewController {
+    
+    let genreName: [String] = ["Jazz", "Classical", "Rap", "Opera", "Country & Western", "Reggae", "Dance", "Indie", "Bollywood", "Rock Heavy Metal", "Pop"]
     
     var audioFile: AVAudioPlayer?
     
@@ -17,13 +19,14 @@ class MyViewController: UIViewController {
     var cardViewBottomConstraint: NSLayoutConstraint!
     
     
-    override func loadView() {
+    public override func loadView() {
         let view = UIView()
         view.backgroundColor = .white
         self.view = view
+        setupStackView()
+        setupAnimateButton()
         setupCardView()
     }
-    
     
     
     @objc func playSound(){
@@ -48,8 +51,6 @@ class MyViewController: UIViewController {
         setupVideoImageView()
         setupTitleLabel()
 //        setupWatchButton()
-        setupAnimateButton()
-        
     }
     
     
@@ -87,6 +88,31 @@ class MyViewController: UIViewController {
         setWatchButtonConstraints()
     }
     
+    func setupStackView(){
+
+        let genreName: [String] = ["Jazz", "Classical", "Rap", "Opera", "Country & Western", "Reggae", "Dance", "Indie", "Bollywood", "Rock Heavy Metal", "Pop"]
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        for i in 0 ..< 11 {
+            let button = UIButton(type: .system)
+            button.setTitle("\(genreName[i])", for: [])
+            button.backgroundColor = .blue
+            stackView.addArrangedSubview(button)
+        }
+
+        view.addSubview(stackView)
+        view.addConstraints(
+            NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[stackView]-20-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["stackView": stackView]))
+
+        view.addConstraints(
+            NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[stackView]-20-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["stackView": stackView])xa)
+    }
+    
     
     func setupAnimateButton() {
         view.addSubview(animateButton)
@@ -100,6 +126,13 @@ class MyViewController: UIViewController {
         setAnimateButtonConstraints()
     }
     
+    func setAnimateButtonConstraints() {
+        animateButton.translatesAutoresizingMaskIntoConstraints = false
+        animateButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+        animateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
+        animateButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        animateButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
+    }
     
     func setupCardViewConstraints() {
         cardView.translatesAutoresizingMaskIntoConstraints = false
@@ -137,16 +170,6 @@ class MyViewController: UIViewController {
         watchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         watchButton.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -20).isActive = true
     }
-    
-    
-    func setAnimateButtonConstraints() {
-        animateButton.translatesAutoresizingMaskIntoConstraints = false
-        animateButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-        animateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
-        animateButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        animateButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
-    }
-    
     
     @objc func animateCard() {
         cardViewBottomConstraint.constant = -120
