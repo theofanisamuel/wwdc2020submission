@@ -156,4 +156,6 @@ class MyViewController: UIViewController {
     }
 }
 
-PlaygroundPage.current.liveView = MyViewController()
+let vc = MyViewController()
+vc.preferredContentSize = CGSize(width: 600, height: 800)
+PlaygroundPage.current.liveView = vc
