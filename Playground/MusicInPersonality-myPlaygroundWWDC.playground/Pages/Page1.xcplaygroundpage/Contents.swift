@@ -25,7 +25,7 @@ public class MyViewController: UIViewController {
         view.backgroundColor = .white
         self.view = view
         setupStackView()
-        setupAnimateButton()
+        //setupAnimateButton()
         setupCardView()
     }
     
@@ -94,10 +94,12 @@ public class MyViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .center
-        stackView.spacing = 10
+        stackView.spacing = 20
         
         addButtonsToStackView()
         setStackViewConstraints()
+        
+        
     }
     
     func addButtonsToStackView(){
@@ -181,6 +183,7 @@ public class MyViewController: UIViewController {
         }, completion: nil)
     }
 }
+
 
 let vc = MyViewController()
 vc.preferredContentSize = CGSize(width: 400, height: 600)
