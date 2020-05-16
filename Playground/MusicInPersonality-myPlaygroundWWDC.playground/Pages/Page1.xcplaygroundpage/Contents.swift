@@ -47,7 +47,7 @@ class MyViewController: UIViewController {
         
         setupVideoImageView()
         setupTitleLabel()
-        setupWatchButton()
+//        setupWatchButton()
         setupAnimateButton()
         
     }
